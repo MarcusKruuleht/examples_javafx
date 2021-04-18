@@ -7,6 +7,8 @@ import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 
@@ -22,15 +24,18 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) {
 
-        Label label1 = new Label("Label1");
-        Label label2 = new Label("Label2");
-
-        FlowPane root = new FlowPane(10, 10, label1, label2);
-        root.setAlignment(Pos.CENTER);
-        Scene scene = new Scene(root, 300, 200);
+        HBox hbox = new HBox();
+        Button button1 = new Button("Add");
+        Button button2 = new Button("Remove");
+        HBox.setHgrow(button1, Priority.ALWAYS);
+        HBox.setHgrow(button2, Priority.ALWAYS);
+        button1.setMaxWidth(Double.MAX_VALUE);
+        button2.setMaxWidth(Double.MAX_VALUE);
+        hbox.getChildren().addAll(button1, button2);
+        Scene scene = new Scene(hbox, 300, 150);
         stage.setScene(scene);
 
-        stage.setTitle("Layout in JavaFX");
+        stage.setTitle("HBox in JavaFX");
 
         stage.show();
     }

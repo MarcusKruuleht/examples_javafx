@@ -3,9 +3,7 @@ package ee.khk;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.ToggleButton;
+import javafx.scene.control.*;
 import javafx.scene.layout.FlowPane;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
@@ -20,20 +18,26 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws Exception{
 
-        ToggleButton lightBtn = new ToggleButton("Light");
-        Label stateLbl = new Label();
-        lightBtn.setOnAction(event -> {
+        Label selectedLbl = new Label();
+        Button selectBtn = new Button("Select");
 
-            if(lightBtn.isSelected()){
-                stateLbl.setText("Light on!");
-            }
-            else{
-                stateLbl.setText("Light off...");
-            }
+        RadioButton javaBtn = new RadioButton("Java");
+        RadioButton jsBtn = new RadioButton("JavaScript");
+        RadioButton csharpBtn = new RadioButton("C#");
+
+        ToggleGroup group = new ToggleGroup();
+
+        javaBtn.setToggleGroup(group);
+        jsBtn.setToggleGroup(group);
+        csharpBtn.setToggleGroup(group);
+
+        selectBtn.setOnAction(event -> {
+            RadioButton selection = (RadioButton) group.getSelectedToggle();
+            selectedLbl.setText("Selected " + selection.getText());
         });
 
-        FlowPane root = new FlowPane(10, 10);
-        root.getChildren().addAll(lightBtn, stateLbl);
+        FlowPane root = new FlowPane(Orientation.VERTICAL,10, 10);
+        root.getChildren().addAll(javaBtn, jsBtn, csharpBtn, selectBtn, selectedLbl);
         root.setPadding(new Insets(10));
         Scene scene = new Scene(root, 250, 200);
 

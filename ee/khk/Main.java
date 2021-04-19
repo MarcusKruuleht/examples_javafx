@@ -4,8 +4,8 @@ import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Orientation;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
@@ -22,21 +22,16 @@ public class Main extends Application {
     public void start(Stage stage) throws Exception{
 
         ObservableList<String> langs = FXCollections.observableArrayList("Java", "JavaScript", "C#", "Python");
-        ListView<String> langsListView = new ListView<String>(langs);
-        langsListView.setPrefSize(250, 150);
+        ComboBox<String> langsComboBox = new ComboBox<String>(langs);
+        langsComboBox.setValue("Java"); // määrame vaikimisi valitud element
 
-        Button btn = new Button("Change");
+        Label lbl = new Label();
 
-        btn.setOnAction(event -> {
-            ObservableList<String> newLangs = FXCollections.observableArrayList("PHP", "Go", "C++");
-            langsListView.setItems(newLangs);
-        });
-
-        FlowPane root = new FlowPane(Orientation.VERTICAL, 10, 10, btn, langsListView);
+        FlowPane root = new FlowPane(Orientation.VERTICAL, 10, 10,  langsComboBox, lbl);
         Scene scene = new Scene(root, 300, 250);
 
         stage.setScene(scene);
-        stage.setTitle("ScrollPane in JavaFX");
+        stage.setTitle("ComboBox in JavaFX");
         stage.show();
     }
 }

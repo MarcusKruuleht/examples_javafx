@@ -1,15 +1,9 @@
 package ee.khk;
 
 import javafx.application.Application;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.geometry.Orientation;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.MultipleSelectionModel;
-import javafx.scene.control.TreeItem;
-import javafx.scene.control.TreeView;
+import javafx.scene.control.Tooltip;
 import javafx.scene.layout.FlowPane;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
@@ -25,50 +19,17 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws Exception{
 
-        TreeItem<String> rootTreeNode = new TreeItem<String>("Languages");
-        rootTreeNode.setExpanded(true);
+        Label lbl = new Label("Label");
+        lbl.setTooltip(new Tooltip("This is a label"));
 
-        TreeItem<String> germanics = new TreeItem<String>("Germanic");
-        germanics.getChildren().add(new TreeItem<String>("Germanic"));
-        germanics.getChildren().add(new TreeItem<String>("English"));
+        Button btn = new Button("Click");
+        btn.setTooltip(new Tooltip("Click the button \nto start an action"));
+        FlowPane root = new FlowPane(10, 10,  btn, lbl);
 
-        TreeItem<String> romans = new TreeItem<String>("Roman");
-        romans.getChildren().add(new TreeItem<String>("French"));
-        romans.getChildren().add(new TreeItem<String>("Spanish"));
-        romans.getChildren().add(new TreeItem<String>("Italian"));
-
-        rootTreeNode.getChildren().add(germanics);
-        rootTreeNode.getChildren().add(romans);
-
-        TreeView<String> langsTreeView = new TreeView<String>(rootTreeNode);
-        langsTreeView.setPrefSize(150, 200);
-
-        MultipleSelectionModel<TreeItem<String>> selectionModel = langsTreeView.getSelectionModel();
-
-        Label lbl = new Label();
-
-        selectionModel.selectedItemProperty().addListener(new ChangeListener<TreeItem<String>>() {
-
-            public void changed(ObservableValue<? extends TreeItem<String>> changed,
-                                TreeItem<String> oldValue, TreeItem<String> newValue) {
-                if (newValue != null) {
-
-                    String path = newValue.getValue();
-                    TreeItem<String> parent = newValue.getParent();
-                    while (parent != null) {
-                        path = parent.getValue() + " / " + path;
-                        parent = parent.getParent();
-                    }
-                    lbl.setText(path);
-                }
-            }
-        });
-
-        FlowPane root = new FlowPane(Orientation.VERTICAL, 10, 10,  langsTreeView, lbl);
-        Scene scene = new Scene(root, 300, 250);
+        Scene scene = new Scene(root, 250, 200);
 
         stage.setScene(scene);
-        stage.setTitle("TreeView in JavaFX");
+        stage.setTitle("Tooltip in JavaFX");
         stage.show();
     }
 }

@@ -5,16 +5,12 @@ import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.FlowPane;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 
 public class Main extends Application {
-
-    CheckBox java;
-    CheckBox javaScript;
-    CheckBox csharp;
-    Label selectedLangs;
 
     public static void main(String[] args) {
 
@@ -24,39 +20,27 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws Exception{
 
-        selectedLangs = new Label("No languages selected");
+        ToggleButton lightBtn = new ToggleButton("Light");
+        Label stateLbl = new Label();
+        lightBtn.setOnAction(event -> {
 
-        java = new CheckBox("Java");
-        javaScript = new CheckBox("JavaScript");
-        csharp = new CheckBox("C#");
+            if(lightBtn.isSelected()){
+                stateLbl.setText("Light on!");
+            }
+            else{
+                stateLbl.setText("Light off...");
+            }
+        });
 
-        java.setOnAction(event -> show());
-        javaScript.setOnAction(event -> show());
-        csharp.setOnAction(event -> show());
-
-        FlowPane root = new FlowPane(Orientation.VERTICAL, 0, 10);
-        root.getChildren().addAll(java, javaScript, csharp, selectedLangs);
-        root.setPadding(new Insets(0,0,0,10));
+        FlowPane root = new FlowPane(10, 10);
+        root.getChildren().addAll(lightBtn, stateLbl);
+        root.setPadding(new Insets(10));
         Scene scene = new Scene(root, 250, 200);
 
         stage.setScene(scene);
 
         stage.setTitle("Hello JavaFX");
+
         stage.show();
-    }
-
-    private void show(){
-
-        String allSelected = "";
-
-        if(java.isSelected()) allSelected += "Java ";
-        if(javaScript.isSelected()) allSelected += "JavaScript ";
-        if(csharp.isSelected()) allSelected += "C#";
-
-        if(allSelected.equals(""))
-            selectedLangs.setText("No languages selected");
-        else
-            selectedLangs.setText(allSelected);
-
     }
 }

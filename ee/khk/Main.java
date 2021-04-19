@@ -3,9 +3,7 @@ package ee.khk;
 import javafx.application.Application;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
 import javafx.scene.layout.FlowPane;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
@@ -21,18 +19,24 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws Exception{
 
-        Label lbl = new Label();
-        TextArea textArea = new TextArea();
-        textArea.setPrefColumnCount(15);
-        textArea.setPrefRowCount(5);
-        Button btn = new Button("Click");
-        btn.setOnAction(event -> lbl.setText("Input " + textArea.getText()));
-        FlowPane root = new FlowPane(Orientation.VERTICAL, 10, 10, textArea, btn, lbl);
-        root.setAlignment(Pos.CENTER);
+        Label headerLbl = new Label("ScrollPane");
+        Label textLbl = new Label("Lorem Ipsum is simply dummy text of the printing and typesetting \n" +
+                "industry. Lorem Ipsum has been the industry standard dummy \n" +
+                "text ever since the 1500s, when an unknown printer took a galery...");
+
+        ScrollPane scrollPane = new ScrollPane(textLbl);
+        scrollPane.setPrefViewportHeight(150);
+        scrollPane.setPrefViewportWidth(200);
+
+        scrollPane.setPannable(false);
+        scrollPane.setVvalue(0.5);
+        scrollPane.setHvalue(0.5);
+
+        FlowPane root = new FlowPane(Orientation.VERTICAL, 10, 10, headerLbl, scrollPane);
         Scene scene = new Scene(root, 300, 250);
 
         stage.setScene(scene);
-        stage.setTitle("Hello JavaFX");
+        stage.setTitle("ScrollPane in JavaFX");
         stage.show();
     }
 }
